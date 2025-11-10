@@ -213,10 +213,11 @@ hdfs dfs -cat /user/hduser/core-site.xml
 ## Step 8: Install Spark (standalone)
 ```bash
 cd ~
-wget https://downloads.apache.org/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
-tar -xzf spark-3.5.0-bin-hadoop3.tgz
-mv spark-3.5.0-bin-hadoop3 spark
+wget https://downloads.apache.org/spark/spark-3.5.7/spark-3.5.7-bin-hadoop3.tgz
+tar -xzf spark-3.5.7-bin-hadoop3.tgz
+mv spark-3.5.7-bin-hadoop3 spark
 ```
+
 And add Spark to `.bashrc`:
 ```bash
 export SPARK_HOME=$HOME/spark
