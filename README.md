@@ -286,4 +286,25 @@ Spark Master: `http://localhost:8080`
 Spark Worker: `http://localhost:8081`
 
 
+# Troubleshoot
+## 1. TaskSchedulerImpl: Initial job has not accepted any resources;
+![image](./spark-ui.png)
+![image](./spark-job-warning.png)
 
+=> Solution
+1. Start a worker on your Linux node
+=> This will register a worker with the master.
+```bash
+$SPARK_HOME/sbin/start-worker.sh spark://192.168.1.100:7077
+
+# Or
+$SPARK_HOME/sbin/start-worker.sh -c 4 -m 4G spark://192.168.1.100:7077
+# -c 4 → 4 CPU cores
+# -m 4G → 4 GB memory
+```
+
+2. Add to `~/.bashrc` or create a systemd service
+=> This ensures the worker is always available.
+```bash
+$SPARK_HOME/sbin/start-worker.sh spark://192.168.1.100:7077
+```
