@@ -246,6 +246,39 @@ $SPARK_HOME/bin/spark-submit --master spark://localhost:7077 \
   $SPARK_HOME/examples/jars/spark-examples_2.12-3.5.0.jar 10
 ```
 
+## Step 11: Configure Spark master to bind externally
+1. Edit `conf/spark-env.sh` on Linux (`$SPARK_HOME/conf/spark-env.sh`):
+```bash
+export SPARK_MASTER_HOST=192.168.1.100
+export SPARK_MASTER_PORT=7077
+export SPARK_MASTER_WEBUI_PORT=8080
+```
+
+Then restart the master
+```bash
+$SPARK_HOME/sbin/stop-master.sh
+$SPARK_HOME/sbin/start-master.sh
+```
+Check the log, should see
+```bash
+Starting Spark master at spark://192.168.1.100:7077
+Web UI available at http://192.168.1.100:8080
+```
+2. Make sure Linux firewall allows port 7077 and 8080
+```bash
+sudo ufw allow 7077
+sudo ufw allow 8080
+
+# Verify
+sudo netstat -tulnp | grep 7077
+# The output
+# tcp6       0      0 192.168.1.100:7077     :::*     LISTEN      12345/java
+```
+
+> [!IMPORTANT]
+> The pyspark version must be compatible between server and code
+> To ensure this, run the command `$SPARK_HOME/bin/spark-submit --version` then update the pyspark version
+
 # Check UI
 NameNode UI: `http://localhost:9870`
 YARN ResourceManager: `http://localhost:8088`
