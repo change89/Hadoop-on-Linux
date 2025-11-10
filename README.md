@@ -286,6 +286,30 @@ Spark Master: `http://localhost:8080`
 Spark Worker: `http://localhost:8081`
 
 
+# Stop
+## 1. Stop Spark Standalone Cluster
+```bash
+# All workers
+$SPARK_HOME/sbin/stop-worker.sh
+# Master
+$SPARK_HOME/sbin/stop-master.sh
+
+# Or stop all at once (if you used `start-all.sh`)
+$SPARK_HOME/sbin/stop-all.sh
+```
+## 2. Stop HDFS (Hadoop)
+```bash
+$HADOOP_HOME/sbin/stop-dfs.sh
+$HADOOP_HOME/sbin/stop-yarn.sh
+```
+
+## 3. Kill leftover java processes
+```bash
+echo "Killing leftover Java processes (careful!)..."
+jps | awk '{print $1}' | xargs -r kill -9
+```
+
+
 # Troubleshoot
 ## 1. TaskSchedulerImpl: Initial job has not accepted any resources;
 ![image](./spark-ui.png)
